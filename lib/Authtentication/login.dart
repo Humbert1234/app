@@ -127,7 +127,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: "Password",
                         suffixIcon: IconButton(
                           onPressed: () {
-                            //In here we will create a click to show and hide the password a toggle button
                             setState(() {
                               //toggle button
                               isVisible = !isVisible;
@@ -190,9 +189,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   // We will disable this message in default, when user and pass is incorrect we will trigger this message to user
                   isLoginTrue
                       ? const Text(
-                        "Username or passowrd is incorrect",
-                        style: TextStyle(color: Colors.red),
-                      )
+                          "Username or passowrd is incorrect",
+                          style: TextStyle(color: Colors.red),
+                        )
                       : const SizedBox(),
                 ],
               ),
