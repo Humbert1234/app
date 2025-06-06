@@ -52,5 +52,4 @@ class DatabaseHelper {
 
     return db.insert('users', user.toMap());
   }
-
 }

@@ -1,11 +1,14 @@
-// ignore_for_file: deprecated_member_use, use_build_context_synchronously
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously, prefer_const_constructors
 
+// Import necessary packages and files
 import 'package:app/Authtentication/login.dart';
+import 'package:app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../JsonModels/users.dart';
 import '../SQLite/sqlite.dart';
 
+// SignUp widget is a StatefulWidget because we need to manage state for form inputs
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -14,18 +17,22 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final username = TextEditingController();
-  final password = TextEditingController();
-  final confirmPassword = TextEditingController();
+  // TextEditingController instances to manage the text input fields
+  final username = TextEditingController(); // Controls username input
+  final password = TextEditingController(); // Controls password input
+  final confirmPassword =
+      TextEditingController(); // Controls confirm password input
 
+  // GlobalKey for form validation
   final formKey = GlobalKey<FormState>();
 
+  // Boolean to toggle password visibility
   bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //SingleChildScrollView to have an scrol in the screen
+      // SingleChildScrollView allows the form to be scrollable when keyboard appears
       body: Center(
         child: SingleChildScrollView(
           child: Form(
@@ -35,7 +42,7 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //We will copy the previous textfield we designed to avoid time consuming
+                  // Header text for the signup form
                   const ListTile(
                     title: Text(
                       "Register New Account",
@@ -46,7 +53,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
-                  //As we assigned our controller to the textformfields
+                  // Username input field with validation
                   Container(
                     margin: EdgeInsets.all(8),
                     padding: const EdgeInsets.symmetric(
@@ -60,6 +67,7 @@ class _SignUpState extends State<SignUp> {
                     child: TextFormField(
                       controller: username,
                       validator: (value) {
+                        // Validates that username is not empty
                         if (value!.isEmpty) {
                           return "username is required";
                         }
@@ -73,7 +81,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
-                  //Password field
+                  // Password input field with visibility toggle
                   Container(
                     margin: const EdgeInsets.all(8),
                     padding: const EdgeInsets.symmetric(
@@ -87,21 +95,21 @@ class _SignUpState extends State<SignUp> {
                     child: TextFormField(
                       controller: password,
                       validator: (value) {
+                        // Validates that password is not empty
                         if (value!.isEmpty) {
                           return "password is required";
                         }
                         return null;
                       },
-                      obscureText: !isVisible,
+                      obscureText: !isVisible, // Toggles password visibility
                       decoration: InputDecoration(
                         icon: const Icon(Icons.lock),
                         border: InputBorder.none,
                         hintText: "Password",
                         suffixIcon: IconButton(
                           onPressed: () {
-                            //In here we will create a click to show and hide the password a toggle button
+                            // Toggle password visibility state
                             setState(() {
-                              //toggle button
                               isVisible = !isVisible;
                             });
                           },
@@ -113,8 +121,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
-                  //Confirm Password field
-                  // Now we check whether password matches or not
+                  // Confirm Password field with matching validation
                   Container(
                     margin: const EdgeInsets.all(8),
                     padding: const EdgeInsets.symmetric(
@@ -128,6 +135,7 @@ class _SignUpState extends State<SignUp> {
                     child: TextFormField(
                       controller: confirmPassword,
                       validator: (value) {
+                        // Validates that confirm password is not empty and matches password
                         if (value!.isEmpty) {
                           return "password is required";
                         } else if (password.text != confirmPassword.text) {
@@ -142,9 +150,8 @@ class _SignUpState extends State<SignUp> {
                         hintText: "Password",
                         suffixIcon: IconButton(
                           onPressed: () {
-                            //In here we will create a click to show and hide the password a toggle button
+                            // Toggle password visibility state
                             setState(() {
-                              //toggle button
                               isVisible = !isVisible;
                             });
                           },
@@ -157,7 +164,7 @@ class _SignUpState extends State<SignUp> {
                   ),
 
                   const SizedBox(height: 10),
-                  //Login button
+                  // Sign Up button with form validation and database interaction
                   Container(
                     height: 55,
                     width: MediaQuery.of(context).size.width * .9,
@@ -167,26 +174,27 @@ class _SignUpState extends State<SignUp> {
                     ),
                     child: TextButton(
                       onPressed: () {
+                        // Validate form before proceeding
                         if (formKey.currentState!.validate()) {
-                          //Login method will be here
-
+                          // Create database helper instance
                           final db = DatabaseHelper();
+                          // Attempt to sign up user
                           db
                               .signup(
-                                Users(
-                                  usrName: username.text,
-                                  usrPassword: password.text,
-                                ),
-                              )
+                            Users(
+                              usrName: username.text,
+                              usrPassword: password.text,
+                            ),
+                          )
                               .whenComplete(() {
-                                //After success user creation go to login screen
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ),
-                                );
-                              });
+                            // After successful signup, navigate to home page
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          });
                         }
                       },
                       child: const Text(
@@ -196,14 +204,14 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
 
-                  //Sign up button
+                  // Login link for existing users
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Already have an account?"),
                       TextButton(
                         onPressed: () {
-                          //Navigate to sign up
+                          // Navigate to login screen
                           Navigator.push(
                             context,
                             MaterialPageRoute(

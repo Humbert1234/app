@@ -1,7 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 
 import '../Authtentication/login.dart';
 import '../constants/app_colors.dart';
+import '../services/auth_service.dart';
 
 class BrandLogo extends StatelessWidget {
   const BrandLogo({super.key});
@@ -26,27 +29,17 @@ class BrandLogo extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: ' Craft',
+                      text: ' Test',
                       style: TextStyle(color: AppColors.secondary),
                     ),
                   ],
                 ),
               ),
               const Text(
-                'Morning Marta',
+                'Morning People',
                 style: TextStyle(fontSize: 14, color: AppColors.grey),
               ),
             ],
-          ),
-          TextButton(
-            onPressed: () {
-              //Navigate to log out
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-              );
-            },
-            child: const Text("LOG OUT", style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

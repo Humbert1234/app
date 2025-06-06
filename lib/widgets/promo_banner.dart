@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+// Import necessary packages
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 
+// PromoBanner displays a promotional banner with gradient overlay and text
 class PromoBanner extends StatelessWidget {
   const PromoBanner({super.key});
 
@@ -15,10 +17,12 @@ class PromoBanner extends StatelessWidget {
         child: Stack(
           alignment: Alignment.centerLeft,
           children: [
+            // Background image for the promo banner
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
               child: Image.asset('assets/images/food_banner.png'),
             ),
+            // Gradient overlay for better text visibility
             Container(
               height: 134,
               decoration: BoxDecoration(
@@ -33,6 +37,7 @@ class PromoBanner extends StatelessWidget {
                 ),
               ),
             ),
+            // Promotional text with different styles
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: RichText(

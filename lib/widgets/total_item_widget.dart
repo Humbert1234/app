@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants/app_assets.dart';
 
+// TotalItemWidget provides quantity control for food items
 class TotalItemWidget extends StatefulWidget {
   const TotalItemWidget({super.key});
 
@@ -8,6 +9,7 @@ class TotalItemWidget extends StatefulWidget {
   State<TotalItemWidget> createState() => _TotalItemWidgetState();
 }
 
+// Global variable to track the total quantity
 int total = 0;
 
 class _TotalItemWidgetState extends State<TotalItemWidget> {
@@ -18,32 +20,26 @@ class _TotalItemWidgetState extends State<TotalItemWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Decrease quantity button
           GestureDetector(
             onTap: () => setState(() {
               if (total != 0) {
                 total--;
               }
             }),
-            child: Image.asset(
-              AppAssets.iconMinus,
-              width: 24,
-            ),
+            child: Image.asset(AppAssets.iconMinus, width: 24),
           ),
+          // Display current quantity
           Text(
             total.toString(),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
+          // Increase quantity button
           GestureDetector(
             onTap: () => setState(() {
               total++;
             }),
-            child: Image.asset(
-              AppAssets.iconPlus,
-              width: 24,
-            ),
+            child: Image.asset(AppAssets.iconPlus, width: 24),
           ),
         ],
       ),

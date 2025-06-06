@@ -4,12 +4,11 @@ import '../constants/app_assets.dart';
 import '../models/food_model.dart';
 import 'text_icon_widget.dart';
 
+// InfoProduct displays additional information about a food item
 class InfoProduct extends StatelessWidget {
+  // Food model containing the information to be displayed
   final FoodModel food;
-  const InfoProduct({
-    super.key,
-    required this.food,
-  });
+  const InfoProduct({super.key, required this.food});
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +17,15 @@ class InfoProduct extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextIconWidget(
-            text: '${food.rating}/5',
-            icon: AppAssets.iconStar,
-          ),
+          // Display rating with star icon
+          TextIconWidget(text: '${food.rating}/5', icon: AppAssets.iconStar),
+          // Display distance with location icon
           TextIconWidget(
             text: '${food.location}Km',
             icon: AppAssets.iconLocation,
           ),
-          TextIconWidget(
-            text: '${food.time}min',
-            icon: AppAssets.iconTime,
-          ),
+          // Display delivery time with clock icon
+          TextIconWidget(text: '${food.time}min', icon: AppAssets.iconTime),
         ],
       ),
     );

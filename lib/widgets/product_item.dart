@@ -1,5 +1,4 @@
-// ignore_for_file: deprecated_member_use, unused_import, prefer_interpolation_to_compose_strings
-
+// ignore_for_file: deprecated_member_use, unused_import, prefer_interpolation_to_compose_strings, prefer_const_constructors
 import 'package:flutter/material.dart';
 import '../constants/app_assets.dart';
 import '../models/food_model.dart';
@@ -64,40 +63,37 @@ class _ProductItemState extends State<ProductItem>
         onTapDown: _onTapDown,
         onTapUp: _onTapUp,
         onTapCancel: _onTapCancel,
-        onTap:
-            () => Navigator.push(
+        onTap: () => Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                DetailProductPage(food: widget.food),
+            transitionsBuilder: (
               context,
-              PageRouteBuilder(
-                pageBuilder:
-                    (context, animation, secondaryAnimation) =>
-                        DetailProductPage(food: widget.food),
-                transitionsBuilder: (
-                  context,
-                  animation,
-                  secondaryAnimation,
-                  child,
-                ) {
-                  const begin = Offset(1.0, 0.0);
-                  const end = Offset.zero;
-                  const curve = Curves.easeInOut;
-                  var tween = Tween(
-                    begin: begin,
-                    end: end,
-                  ).chain(CurveTween(curve: curve));
-                  var offsetAnimation = animation.drive(tween);
-                  return SlideTransition(
-                    position: offsetAnimation,
-                    child: child,
-                  );
-                },
-                transitionDuration: const Duration(milliseconds: 300),
-              ),
-            ),
+              animation,
+              secondaryAnimation,
+              child,
+            ) {
+              const begin = Offset(1.0, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.easeInOut;
+              var tween = Tween(
+                begin: begin,
+                end: end,
+              ).chain(CurveTween(curve: curve));
+              var offsetAnimation = animation.drive(tween);
+              return SlideTransition(
+                position: offsetAnimation,
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 300),
+          ),
+        ),
         child: AnimatedBuilder(
           animation: _scaleAnimation,
-          builder:
-              (context, child) =>
-                  Transform.scale(scale: _scaleAnimation.value, child: child),
+          builder: (context, child) =>
+              Transform.scale(scale: _scaleAnimation.value, child: child),
           child: Card(
             clipBehavior: Clip.antiAlias,
             elevation: _isHovered ? 8 : 4,
@@ -118,15 +114,15 @@ class _ProductItemState extends State<ProductItem>
                         child: Image.asset(
                           widget.food.imageUrl,
                           fit: BoxFit.cover,
-                          errorBuilder:
-                              (context, error, stackTrace) => Container(
-                                color: theme.colorScheme.surfaceVariant,
-                                child: Icon(
-                                  Icons.broken_image,
-                                  size: 48,
-                                  color: theme.colorScheme.onSurfaceVariant,
-                                ),
-                              ),
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: theme.colorScheme.surfaceVariant,
+                            child: Icon(
+                              Icons.broken_image,
+                              size: 48,
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
                         ),
                       ),
                     ),

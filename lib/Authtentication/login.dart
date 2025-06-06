@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../JsonModels/users.dart';
 import '../SQLite/sqlite.dart';
+import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoginTrue = false;
 
   final db = DatabaseHelper();
+  final authService = AuthService();
 
   //Now we should call this function in login button
   login() async {
@@ -35,6 +37,11 @@ class _LoginScreenState extends State<LoginScreen> {
       Users(usrName: username.text, usrPassword: password.text),
     );
     if (response == true) {
+      // Store the logged in user
+      await authService.setLoggedInUser(
+        Users(usrName: username.text, usrPassword: password.text),
+      );
+
       //If login is correct, then goto notes
       if (!mounted) return;
       Navigator.pushReplacement(
